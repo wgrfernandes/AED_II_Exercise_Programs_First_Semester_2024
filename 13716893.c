@@ -284,7 +284,6 @@ void AdamicAdar(Grafo* g, int v, float* coeficientes){
   for(int i = 0; i<g->numVertices; i++){
     coeficientes[i] = 0;
   }
-
   
   for(int i=0; i<g->numVertices; i++){
     if(g->matriz[v][i]){//verificando de v eh vizinho de i
