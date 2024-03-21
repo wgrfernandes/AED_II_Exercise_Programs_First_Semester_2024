@@ -231,22 +231,22 @@ void vizinhosEmComum(Grafo* g, int v, int* vizinhos){
     return;
   }
 
-  //passando pela verificação se possui vizinhos, o seguimos com o seguinte calculo
-  for (int i = 0; i < g->numVertices; i++) {
-        vizinhos[i] = 0;
+  //passando pela verificacao se possui vizinhos, o seguimos com o seguinte calculo
+  for (int i = 0; i < g->numVertices; i++){
+    vizinhos[i] = 0;
   } //Aqui, inicializamos o Array de vizinhos
 
-  for (int i = 0; i < g->numVertices; i++) {
-    if (g->matriz[v][i]) { //Se v eh vizinho de i, então verificaremos os vizinhos de i
-      for (int j = 0; j < g->numVertices; j++) {
-        if (g->matriz[i][j]) { //
+  for (int i = 0; i < g->numVertices; i++){
+    if (g->matriz[v][i]){//Se v eh vizinho de i, então verificaremos os vizinhos de i
+      for (int j = 0; j < g->numVertices; j++){
+        if (g->matriz[i][j]){ 
           // Se i eh vizinho de j incrementa a contagem de vizinhos em comum entre v e j
-            vizinhos[j]++;
+          vizinhos[j]++;
         }
       }
     }
   }
-}//Em resumo, usamos o primeiro for para ter i como vizinho simultaneo de v e j, por isso incrementamos a posição j do array vizinhos
+}//Em resumo, usamos o primeiro for para ter i como vizinho simultaneo de v e j, por isso incrementamos a posicao j do array vizinhos
 
 
 /* Coeficiente de Jaccard */
@@ -314,7 +314,6 @@ void alocacaoDeRecursos(Grafo* g, int v, float* coeficientes){
       }
     }
   }
-
 }
 
 
