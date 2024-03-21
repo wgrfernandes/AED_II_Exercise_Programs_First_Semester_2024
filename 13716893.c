@@ -233,7 +233,7 @@ void vizinhosEmComum(Grafo* g, int v, int* vizinhos){
 
   //passando pela verificação se possui vizinhos, o seguimos com o seguinte calculo
   for (int i = 0; i < g->numVertices; i++) {
-    vizinhos[i] = 0;
+        vizinhos[i] = 0;
   } //Aqui, inicializamos o Array de vizinhos
 
   for (int i = 0; i < g->numVertices; i++) {
@@ -241,7 +241,7 @@ void vizinhosEmComum(Grafo* g, int v, int* vizinhos){
       for (int j = 0; j < g->numVertices; j++) {
         if (g->matriz[i][j]) { //
           // Se i eh vizinho de j incrementa a contagem de vizinhos em comum entre v e j
-          vizinhos[j]++;
+            vizinhos[j]++;
         }
       }
     }
@@ -269,7 +269,7 @@ void coeficienteDeJaccard(Grafo* g, int v, float* coeficientes){
       coeficientes[i] = -1.0;
     } else{
 
-      //calculamos o coeficiente para cada i em relacao a v e armazenamos no array
+    //calculamos o coeficiente para cada i em relacao a v e armazenamos no array
       coeficientes[i] = (float)intersection[i]/(float)divisor;
     }
   }
