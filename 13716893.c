@@ -224,6 +224,14 @@ void exibeArranjoInteiros(int* arranjo, int n){
    A DESCRICAO DE CADA FUNCAO ESTA NO ENUNCIADO DO EP.
    www.each.usp.br/digiampietri/ACH2024/ep1/ep1.pdf        */
 
+
+/*Funcao auxliar que escrevi para inicializar vetores de tipo float*/
+void inicializaVetor(Grafo*g, float* coeficientes){
+  for(int i= 0; i<g->numVertices; i++){
+    coeficientes[i] = 0;
+  }
+}
+
 /* Vizinhos em Comum */
 void vizinhosEmComum(Grafo* g, int v, int* vizinhos){
 
@@ -237,7 +245,7 @@ void vizinhosEmComum(Grafo* g, int v, int* vizinhos){
   } //Aqui, inicializamos o Array de vizinhos
 
   for (int i = 0; i < g->numVertices; i++){
-    if (g->matriz[v][i]){//Se v eh vizinho de i, então verificaremos os vizinhos de i
+    if (g->matriz[v][i]){//Se v eh vizinho de i, entao verificaremos os vizinhos de i
       for (int j = 0; j < g->numVertices; j++){
         if (g->matriz[i][j]){ 
           // Se i eh vizinho de j incrementa a contagem de vizinhos em comum entre v e j
@@ -254,12 +262,10 @@ void coeficienteDeJaccard(Grafo* g, int v, float* coeficientes){
 
   int* intersection = (int*)malloc(sizeof(int) * g->numVertices);//a interseccao de vizinhos
   vizinhosEmComum(g, v, intersection);//Armazenando a quantidade de vizinhos em comum de v para cada vertice em seu indice
+  inicializaVetor(g, coeficientes);//inicializando o vetor
 
   //laco de iteracao para calcular o coeficiente para cada posicao do vetor
   for(int i= 0; i<g->numVertices; i++){
-
-    //inicializando o vetor
-    coeficientes[i] = 0;
 
     //Calculamos o divisor da operacao (uniao de v com i menos a interseccao de v com i para eliminar contagens duplicadas [T(vUi) - T(v^i)] )
     int divisor = retornaGrauDoVertice(g, v) + retornaGrauDoVertice(g,i) - intersection[i];
@@ -281,9 +287,7 @@ void coeficienteDeJaccard(Grafo* g, int v, float* coeficientes){
 void AdamicAdar(Grafo* g, int v, float* coeficientes){
 
   //inicializamos o array
-  for(int i = 0; i<g->numVertices; i++){
-    coeficientes[i] = 0;
-  }
+  inicializaVetor(g, coeficientes);
   
   for(int i=0; i<g->numVertices; i++){
     if(g->matriz[v][i]){//verificando de v eh vizinho de i
@@ -301,9 +305,7 @@ void AdamicAdar(Grafo* g, int v, float* coeficientes){
 void alocacaoDeRecursos(Grafo* g, int v, float* coeficientes){
 
   // Inicializamos o array
-  for(int i = 0; i<g->numVertices; i++){
-    coeficientes[i] = 0;
-  }
+  inicializaVetor(g, coeficientes);
 
   for(int i=0; i<g->numVertices; i++){
     if(g->matriz[v][i]){//checando de i eh vizinho de v
@@ -322,9 +324,9 @@ void similaridadeCosseno(Grafo* g, int v, float* coeficientes){
 
   int* intersection = (int*)malloc(sizeof(int)*g->numVertices);
   vizinhosEmComum(g, v, intersection);
+  inicializaVetor(g, coeficientes);//inicializamos o vetor
 
   for(int i = 0; i<g->numVertices; i++){
-    coeficientes[i] = 0;//inicializando as posicoes do vetor de pontos flutantes
     if(sqrt(retornaGrauDoVertice(g,v)*retornaGrauDoVertice(g,i)) == 0){//verificando se o denominador eh igual a 0
       coeficientes[i] = -1;
     }else {
@@ -341,9 +343,9 @@ void coeficienteDeDice(Grafo* g, int v, float* coeficientes){
   const float two = 2;//criando a constante contida no calculo de dice
   int* intersection = (int*)malloc(sizeof(int)*g->numVertices);
   vizinhosEmComum(g, v, intersection);
+  inicializaVetor(g, coeficientes);
 
   for(int i = 0; i<g->numVertices; i++){
-    coeficientes[i] = 0;//inicalizando posicoes 
     if(retornaGrauDoVertice(g, v) + retornaGrauDoVertice(g, i) == 0){//checando se o denominador eh igual a zero
       coeficientes[i] = -1;//armazena -1 caso o denominador seja igual a zero
     }else {
@@ -360,9 +362,9 @@ void HPI(Grafo* g, int v, float* coeficientes){
 
   int* intersection = (int*)malloc(sizeof(int)*g->numVertices);//aloca memoria dinamicamente para a nossa variavel local
   vizinhosEmComum(g, v, intersection);//armazena o valor da interseccao na posicao do array
-
+  inicializaVetor(g, coeficientes);
+  
   for(int i = 0; i<g->numVertices; i++){
-    coeficientes[i] = 0;
     if(retornaGrauDoVertice(g, v) + retornaGrauDoVertice(g, i) == 0){//verifica se o denominador eh igual a zero
       coeficientes[i] = -1;
     }else {
@@ -379,9 +381,9 @@ void HDI(Grafo* g, int v, float* coeficientes){
 
   int* intersection = (int*)malloc(sizeof(int)*g->numVertices);
   vizinhosEmComum(g, v, intersection);
+  inicializaVetor(g, coeficientes);
 
   for(int i = 0; i<g->numVertices; i++){
-    coeficientes[i] = 0;
     if(retornaGrauDoVertice(g, v) + retornaGrauDoVertice(g, i) == 0){
       coeficientes[i] = -1;//retorna o valor -1 caso o denominador seja igual a 0
     }else {
